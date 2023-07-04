@@ -1,3 +1,14 @@
 {
-  "extends": "next/core-web-vitals"
+  "extends": "next/core-web-vitals",
+	"rules": {
+		"@typescript-eslint/no-inferrable-types": "off",
+		"react/react-in-jsx-scope": "off",
+		"react/prop-types": "off",
+		"react/display-name": "off",
+		"prefer-const": ["error", {
+			"destructuring": "all"
+		}],
+		"comma-dangle":"error",
+		"semi": [ "error", "never" ]
+	}
 }
