@@ -1,10 +1,28 @@
+"use client"
+
 import Image from "next/image"
 import Link from "next/link"
+import { useRef } from "react"
 
 const Header = () => {
+  const navMenuRef = useRef<HTMLElement | null>(null)
+
+  const toggleNavMenu = () => {
+    navMenuRef.current?.classList.toggle("translate-x-[-100%]")
+    navMenuRef.current?.classList.toggle("opacity-0")
+  }
+
+  const closeNavMenu = () => {
+    navMenuRef.current?.classList.add("translate-x-[-100%]")
+    navMenuRef.current?.classList.add("opacity-0")
+  }
+
   return (
-    <header className="p-3 mb-3 flex items-center justify-between container bg-blue-600">
-      <Link href="/">
+    <header className="container relative flex justify-between p-3 mb-3 bg-blue-600 select-none xs:items-center">
+      <Link
+        href="/"
+        onClick={closeNavMenu}
+      >
         <Image
           src="/logo.svg"
           alt="Next Space"
@@ -12,19 +30,46 @@ const Header = () => {
           height={30}
         />
       </Link>
-      <nav>
-        <ul className="flex gap-3 text-white">
+
+      {/* prettier-ignore */}
+      <button onClick={toggleNavMenu}>
+        <svg 
+          className="inline-block cursor-pointer active:scale-95 xs:hidden"
+          height="30"
+          width="30"
+          viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g strokeWidth="0"></g><g strokeLinecap="round" strokeLinejoin="round"></g><g> <path d="M5 12H20" stroke="#ffffff" strokeWidth="2" strokeLinecap="round"></path> <path d="M5 17H20" stroke="#ffffff" strokeWidth="2" strokeLinecap="round"></path> <path d="M5 7H20" stroke="#ffffff" strokeWidth="2" strokeLinecap="round"></path> </g>
+        </svg>
+      </button>
+
+      <nav
+        className="absolute left-0 right-0 py-3 transition-all duration-500 ease-out translate-x-[-100%] opacity-0
+        bg-blue-600 border-t-2 border-blue-400 top-full xs:static xs:translate-x-0 xs:opacity-100 xs:block xs:border-none"
+        ref={navMenuRef}
+      >
+        <ul className="relative flex flex-col gap-3 pl-4 text-white underline xs:flex-row xs:no-underline">
           <li>
-            <Link href="/about">About</Link>
+            <Link
+              href="/about"
+              onClick={closeNavMenu}
+            >
+              About
+            </Link>
           </li>
           <li>
-            <Link href="/about">About</Link>
+            <Link
+              href="/blog"
+              onClick={closeNavMenu}
+            >
+              Blog
+            </Link>
           </li>
           <li>
-            <Link href="/about">About</Link>
-          </li>
-          <li>
-            <Link href="/about">About</Link>
+            <Link
+              href="/users"
+              onClick={closeNavMenu}
+            >
+              Users
+            </Link>
           </li>
         </ul>
       </nav>
