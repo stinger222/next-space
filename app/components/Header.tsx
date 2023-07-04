@@ -1,9 +1,9 @@
 import Image from "next/image"
 import Link from "next/link"
 
-const NavMenu = () => {
+const Header = () => {
   return (
-    <header className="p-3 flex items-center justify-between bg-blue-600">
+    <header className="p-3 mb-3 flex items-center justify-between container bg-blue-600">
       <Link href="/">
         <Image
           src="/logo.svg"
@@ -32,4 +32,4 @@ const NavMenu = () => {
   )
 }
 
-export default NavMenu
+export default Header
