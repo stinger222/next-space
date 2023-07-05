@@ -57,10 +57,10 @@ const Header = () => {
           </li>
           <li>
             <Link
-              href="/blog"
+              href="/posts"
               onClick={closeNavMenu}
             >
-              Blog
+              Posts
             </Link>
           </li>
           <li>
