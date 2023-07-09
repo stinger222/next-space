@@ -3,6 +3,7 @@
 import Image from "next/image"
 import Link from "next/link"
 import { useRef } from "react"
+import { SignInOutButton } from "../ui/buttons"
 
 const Header = () => {
   const navMenuRef = useRef<HTMLElement | null>(null)
@@ -70,6 +71,9 @@ const Header = () => {
             >
               Users
             </Link>
+          </li>
+          <li className="-order-1 xs:order-none">
+            <SignInOutButton />
           </li>
         </ul>
       </nav>

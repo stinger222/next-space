@@ -1,10 +1,18 @@
 import { IPost } from "@/types/types"
 import React from "react"
 
+export const revalidate = 300
 interface IProps {
   params: {
     postId: number
   }
+}
+
+export const generateSaticParams = async () => {
+  const posts: IPost[] = await (await fetch("http://localhost:3000/api/posts")).json()
+  return posts.map((post) => ({
+    slug: post.id
+  }))
 }
 
 const Posts = async ({ params }: IProps) => {
