@@ -1,17 +1,18 @@
 import { IPost } from "@/types/types"
 import React from "react"
 
-export const revalidate = 300
+export const revalidate = 600
 interface IProps {
   params: {
     postId: number
   }
 }
 
+// Called at build time, to help Next preload/cache possible [postId]
 export const generateSaticParams = async () => {
   const posts: IPost[] = await (await fetch("http://localhost:3000/api/posts")).json()
   return posts.map((post) => ({
-    slug: post.id
+    postId: post.id
   }))
 }
 

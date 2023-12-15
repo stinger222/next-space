@@ -10,7 +10,7 @@ const UserCard = async ({ id, name, image }: IUser) => {
         height="180"
         className="rounded-md border border-gray-300"
         src={image || require("../../../public/logo.svg")} // TODO: Add default image
-        alt="User Avatar"
+        alt="User's Avatar"
       />
       <Link
         href={`/users/${id}`}

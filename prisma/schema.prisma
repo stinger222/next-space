@@ -41,6 +41,8 @@ model User {
   name          String?
   email         String?   @unique
   emailVerified DateTime?
+  bio           String? @db.Text
+  age           Int?
   image         String?
   accounts      Account[]
   sessions      Session[]

@@ -6,10 +6,10 @@ export default async function Home() {
 
   return (
     <div>
-      <h1>Name: {session?.user?.name}</h1>
-      <h1>Data:</h1>
+      <h2>Name: {session?.user?.name}</h2>
+      <h2>Data:</h2>
       <pre>{JSON.stringify(session?.user)}</pre>
-      <h1>This is home page, and there is nothing here...</h1>
+      <h2>This is home page, and there is nothing here...</h2>
     </div>
   )
 }

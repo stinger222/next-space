@@ -8,10 +8,35 @@
   box-sizing: border-box;
 }
 
+::-webkit-scrollbar {
+  width: 15px;
+  background-color: white;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #DCDCDC;
+  border-radius: 50px;
+  border: 3.5px solid white;
+}
+
+
 .container {
-  @apply mx-auto px-4 max-w-7xl;
+  @apply mx-auto p-5 max-w-5xl;
 }
 
 h1 {
-  @apply text-2xl font-semibold;
+  @apply text-4xl font-semibold;
 }
+
+h2 {
+  @apply text-2xl font-semibold
+}
+
+h3 {
+  @apply text-xl font-medium
+}
+
+h3 + p {
+  @apply mb-3
+}
+
