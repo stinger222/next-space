@@ -24,6 +24,22 @@
   @apply mx-auto p-5 max-w-5xl;
 }
 
+.max-lines-1, .max-lines-2 {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
+  word-wrap: break-word;
+  overflow: hidden;
+}
+
+.max-lines-1 {
+  -webkit-line-clamp: 1;
+}
+
+.max-lines-2 {
+  -webkit-line-clamp: 2;
+}
+
 h1 {
   @apply text-4xl font-semibold;
 }

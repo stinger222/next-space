@@ -7,15 +7,19 @@ interface IProps {
   }
 }
 
-const UserProfile = async ({ params }: IProps) => {
+export const generateMetadata = async ({ params }: Pick<IProps, "params">) => {
+  const user = await prisma.user.findUnique({ where: {id: params.id} })
+  return {title: `${user?.name}'s User Profile`}
+}
 
+const UserProfile = async ({ params }: IProps) => {
   const user = await prisma.user.findUnique({ where: {id: params.id} })
 
   return (
     <div className="flex flex-col gap-5">
       <div className="flex flex-col gap-5 sm:flex-row">
-        <div className="flex flex-col align-bottom items-center w-full sm:max-w-fit">
-          <h1 className="text-4xl mb-5 w-full text-center">
+        <div className="flex flex-col align-bottom items-center w-full sm:max-w-fit ">
+          <h1 className="text-4xl mb-5 w-full text-center max-w-sm max-lines-2">
             {user?.name}
           </h1>
 
