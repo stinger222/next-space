@@ -56,3 +56,6 @@ h3 + p {
   @apply mb-3
 }
 
+input, textarea {
+  @apply block m-3 p-3 text-base w-full outline-none bg-gray-100 rounded-md shadow-sm shadow-gray-500
+}

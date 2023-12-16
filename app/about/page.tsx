@@ -14,7 +14,7 @@ const About = () => {
 
       <h1 className="mt-16 mb-2 text-4xl font-semibold">About us</h1>
       <hr />
-      <p className="mt-3">Кто us, я тут один бл@ть(((</p>
+      <p className="mt-3">Кто us, я тут один(((</p>
     </div>
   )
 }
