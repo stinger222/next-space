@@ -21,7 +21,7 @@
 
 
 .container {
-  @apply mx-auto p-5 max-w-5xl;
+  @apply mx-auto p-4 max-w-5xl;
 }
 
 .max-lines-1, .max-lines-2 {
@@ -58,4 +58,16 @@ h3 + p {
 
 input, textarea {
   @apply block m-3 p-3 text-base w-full outline-none bg-gray-100 rounded-md shadow-sm shadow-gray-500
+}
+
+button.btn {
+  @apply inline-block px-4 py-1.5 m-2 font-medium border rounded-md shadow-sm outline-none transition-colors disabled:pointer-events-none disabled:opacity-50 active:scale-95
+}
+
+button.btn.light {
+  @apply border-gray-200 bg-white hover:bg-gray-100 hover:text-gray-900 
+}
+
+button.btn.dark {
+  @apply text-white border-gray-800 bg-gray-950 hover:bg-gray-800 hover:text-gray-50 focus-visible:ring-gray-300
 }

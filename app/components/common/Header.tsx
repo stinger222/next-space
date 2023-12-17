@@ -3,7 +3,7 @@
 import Image from "next/image"
 import Link from "next/link"
 import { useRef } from "react"
-import { SignInOutButton } from "../ui/buttons"
+import { SignInOutButton } from "../ui/SignInOutButton"
 
 const Header = () => {
   const navMenuRef = useRef<HTMLElement | null>(null)
@@ -32,7 +32,6 @@ const Header = () => {
         />
       </Link>
 
-      {/* prettier-ignore */}
       <button onClick={toggleNavMenu}>
         <svg 
           className="inline-block cursor-pointer active:scale-95 xs:hidden"
