@@ -22,7 +22,7 @@ import Link from "next/link"
           <Button variant="dark">About</Button>
         </Link>
 
-        <Link href={`/users/${session?.user?.id}`}>
+        <Link href={`/api/users/me`}>
           <Button>My Profile</Button>
         </Link>
       </span>

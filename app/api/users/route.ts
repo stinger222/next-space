@@ -1,6 +1,7 @@
 import { prisma } from "@/lib/prisma"
 import { getServerSession } from "next-auth"
 import { NextRequest, NextResponse } from "next/server"
+import { authOptions } from "../auth/[...nextauth]/route"
 
 export const GET = async () => {
   const users = await prisma.user.findMany()
@@ -8,7 +9,7 @@ export const GET = async () => {
 }
 
 export const PUT = async (req: NextRequest) => {
-  const userId = (await getServerSession())?.user?.id
+  const userId = (await getServerSession(authOptions))?.user?.id
   
   if (!userId) return NextResponse.json({
     message: "No user ID provided in the requestbody"
