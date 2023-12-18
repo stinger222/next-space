@@ -14,13 +14,13 @@ import Link from "next/link"
           NextSpace
         </span>
       </h1>
-      <p className="mt-3 text-center text-[19px] text-gray-500 font-medium">
+      <p className="mt-1 text-center text-[19px] text-gray-500 font-medium">
         Completely useless demo application intended to practice <br/> some Next.js Framework&apos; basics
       </p>
       <span className="mt-5">
-        <a href="https://github.com" target="_blank">
+        <Link href="/about">
           <Button variant="dark">About</Button>
-        </a>
+        </Link>
 
         <Link href={`/users/${session?.user?.id}`}>
           <Button>My Profile</Button>

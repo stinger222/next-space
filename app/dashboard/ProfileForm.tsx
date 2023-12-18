@@ -76,7 +76,7 @@ const ProfileEditForm = ({ user }: IProps) => {
       <button
         className="block mx-auto my-8 px-7 py-1 text-xl text-gray-400 font-semibold border-2 border-gray-400 rounded-lg"
         type="submit"
-      >Edit
+      >Save
       </button>
 		</form>
 	)

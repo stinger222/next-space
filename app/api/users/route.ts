@@ -1,22 +1,24 @@
 import { prisma } from "@/lib/prisma"
+import { getServerSession } from "next-auth"
 import { NextRequest, NextResponse } from "next/server"
 
-export const GET = async (req: NextRequest) => {
+export const GET = async () => {
   const users = await prisma.user.findMany()
-
   return NextResponse.json(users)
 }
 
 export const PUT = async (req: NextRequest) => {
-  const { name, age, image, bio, id } = await req.json()
+  const userId = (await getServerSession())?.user?.id
   
-  if (!id) return NextResponse.json({
+  if (!userId) return NextResponse.json({
     message: "No user ID provided in the requestbody"
   },{ status: 403 })
+  
+  const { name, age, image, bio } = await req.json()
 
   try {
     await prisma.user.update({
-      where: { id: id },
+      where: { id: userId },
       data: { name, image, age: +age || null, bio}
     })
 

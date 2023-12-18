@@ -8,6 +8,12 @@ export const metadata: Metadata = {
 const About = () => {
   return (
     <div>
+      <h1 className="mt-10 mb-2 text-4xl font-bold text-red-500">TODO</h1>
+      <hr />
+      <p className="mt-3 text-xl text-red-500">Make this page look like readme or something</p>
+      <br/>
+      <br/>
+      <br/>
       <h1 className="mt-10 mb-2 text-4xl font-semibold">What is this app?</h1>
       <hr />
       <p className="mt-3">Nothing more than a practice to master Next.js basics</p>
