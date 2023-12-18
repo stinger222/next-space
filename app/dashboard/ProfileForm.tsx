@@ -1,6 +1,7 @@
 "use client"
 
 import { IUser, prisma } from "@/lib/prisma"
+import { useSession } from "next-auth/react"
 import { useRouter } from "next/navigation"
 import { useForm } from "react-hook-form"
 
@@ -16,6 +17,7 @@ interface IForm {
 }
 
 const ProfileEditForm = ({ user }: IProps) => {
+  const session = useSession()
   const router = useRouter()
 
   const { handleSubmit, register, reset } = useForm<IForm>({
@@ -37,8 +39,10 @@ const ProfileEditForm = ({ user }: IProps) => {
         "Content-type": "application/json"
       }
     })
-    .then(() => router.push("/")).catch(() => reset())
+    .then(() => router.push("/api/users/me")).catch(() => reset())
   }
+
+  if (session.status === "loading") return <p>Loading...</p> // TODO: Replace with <Loader/>
 
 	return (
 		<form onSubmit={handleSubmit(onSubmit)}>
