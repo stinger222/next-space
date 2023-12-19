@@ -30,10 +30,10 @@ const ProfileEditForm = ({ user }: IProps) => {
   })
 
   const onSubmit = ({name, age, image, bio}: IForm) => {
-    fetch(`/api/users`, {
+    fetch("/api/users", {
       method: "PUT",
       body: JSON.stringify({
-        id: user.id, name, image, bio, age
+        name, image, bio, age
       }),
       headers: {
         "Content-type": "application/json"

@@ -1,51 +1,35 @@
+import { getServerSession } from "next-auth"
 import { IPost } from "../../../types/types"
-import { NextResponse } from "next/server"
+import { NextRequest, NextResponse } from "next/server"
+import { authOptions } from "../auth/[...nextauth]/route"
+import { prisma } from "@/lib/prisma"
 
 export const GET = async () => {
+  const posts = await prisma.post.findMany()
   return NextResponse.json(posts)
 }
 
-const posts: IPost[] = [
-  {
-    date: "them4/3/2044",
-    author: "Cody_Stanley",
-    title: "yard",
-    id: 89
-  },
-  {
-    date: "thou3/27/2089",
-    author: "Calvin_Burgess",
-    title: "within",
-    id: 35
-  },
-  {
-    date: "leg9/20/2110",
-    author: "Sally_Newton",
-    title: "wore",
-    id: 44
-  },
-  {
-    date: "piano1/16/2059",
-    author: "Georgie_Allen",
-    title: "scared",
-    id: 48
-  },
-  {
-    date: "arm3/25/2088",
-    author: "Douglas_Black",
-    title: "pen",
-    id: 33
-  },
-  {
-    date: "finally6/17/2061",
-    author: "Chris_Simmons",
-    title: "decide",
-    id: 88
-  },
-  {
-    date: "seat6/21/2051",
-    author: "Joshua_Weaver",
-    title: "supper",
-    id: 82
+export const POST = async (req: NextRequest) => {
+  const authorId = (await getServerSession(authOptions))?.user?.id
+  if (!authorId) return NextResponse.json("Not Authorized", { status: 401 })
+
+  const postMessage = (await req.json())?.postMessage?.trim()
+  if (!postMessage) return NextResponse.json("Invalid post message", { status: 403 })
+
+  console.log("\n\nTrying to create new post: ")
+  console.log("authorId: ", authorId)
+  console.log("postMessage: ", postMessage, "\n\n")
+
+  try {
+    await prisma.post.create({
+      data: {
+        postMessage,
+        authorId
+      }
+    })
+    return NextResponse.json("Post created successfully", { status: 200 })
+  } catch (err) {
+    console.error(err)
+    return NextResponse.json("Can't create post due to some internal server error", { status: 500 })
   }
-]
+}
