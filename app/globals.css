@@ -57,8 +57,13 @@ h3 + p {
 }
 
 input, textarea {
-  @apply block m-3 p-3 text-base w-full outline-none bg-gray-100 rounded-md shadow-sm shadow-gray-500
+  @apply block p-3 text-base w-full outline-none bg-gray-100 rounded-md shadow-sm shadow-gray-500
 }
+
+input + input, textarea + textarea, input + textarea, textarea + input {
+  @apply mt-3
+}
+
 
 button.btn {
   @apply inline-block px-4 py-1.5 m-2 font-medium border rounded-md shadow-sm outline-none transition-colors disabled:pointer-events-none disabled:opacity-50 active:scale-95

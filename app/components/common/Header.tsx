@@ -33,11 +33,40 @@ const Header = () => {
       </Link>
 
       <button onClick={toggleNavMenu}>
-        <svg 
+        <svg
           className="inline-block cursor-pointer active:scale-95 xs:hidden"
           height="30"
           width="30"
-          viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g strokeWidth="0"></g><g strokeLinecap="round" strokeLinejoin="round"></g><g> <path d="M5 12H20" stroke="#ffffff" strokeWidth="2" strokeLinecap="round"></path> <path d="M5 17H20" stroke="#ffffff" strokeWidth="2" strokeLinecap="round"></path> <path d="M5 7H20" stroke="#ffffff" strokeWidth="2" strokeLinecap="round"></path> </g>
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <g strokeWidth="0"></g>
+          <g
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          ></g>
+          <g>
+            {" "}
+            <path
+              d="M5 12H20"
+              stroke="#ffffff"
+              strokeWidth="2"
+              strokeLinecap="round"
+            ></path>{" "}
+            <path
+              d="M5 17H20"
+              stroke="#ffffff"
+              strokeWidth="2"
+              strokeLinecap="round"
+            ></path>{" "}
+            <path
+              d="M5 7H20"
+              stroke="#ffffff"
+              strokeWidth="2"
+              strokeLinecap="round"
+            ></path>{" "}
+          </g>
         </svg>
       </button>
 
@@ -71,7 +100,7 @@ const Header = () => {
               Users
             </Link>
           </li>
-          <li className="-order-1 xs:order-none">
+          <li className="-order-1 xs:order-none shrink-0">
             <SignInOutButton />
           </li>
         </ul>
