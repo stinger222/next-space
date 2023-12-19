@@ -1,5 +1,7 @@
+import ErrorPage from "@/app/components/common/ErrorPage"
 import PostCreationForm from "@/app/components/common/PostCreationForm"
 import { prisma } from "@/lib/prisma"
+import Error from "next/error"
 import Image from "next/image"
 
 interface IProps {
@@ -15,6 +17,14 @@ export const generateMetadata = async ({ params }: Pick<IProps, "params">) => {
 
 const UserProfile = async ({ params }: IProps) => {
   const user = await prisma.user.findUnique({ where: { id: params.id } })
+
+  if (!user)
+    return (
+      <ErrorPage
+        header="User not found"
+        description="Couldn't find the user you are looking for.&nbsp;Please check the ID and try again."
+      />
+    )
 
   return (
     <div className="flex flex-col gap-5">

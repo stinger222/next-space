@@ -9,7 +9,8 @@ import Link from "next/link"
   return (
     <div className="flex flex-col items-center">
       <h1 className="mt-16 text-center text-5xl font-bold sm:mt-32 sm:hidden">
-        Welcome to<br/>
+        Welcome to
+        <br />
         <span className="px-1 whitespace-nowrap italic bg-gradient-to-br from-[#2f16ff] to-[#9000ff] bg-clip-text text-transparent">
           NextSpace
         </span>
@@ -23,15 +24,20 @@ import Link from "next/link"
       </h1>
 
       <p className="mt-1 text-center text-[19px] text-gray-500 font-medium">
-        Completely useless demo application intended to practice <br/> some Next.js Framework&apos; basics
+        Completely useless demo application intended to practice <br /> some Next.js Framework&apos; basics
       </p>
       <span className="mt-5">
         <Link href="/about">
-          <Button variant="dark">About</Button>
+          <Button
+            className="m-2"
+            variant="dark"
+          >
+            About
+          </Button>
         </Link>
 
         <Link href={`/api/users/me`}>
-          <Button>My Profile</Button>
+          <Button className="m-2">My Profile</Button>
         </Link>
       </span>
     </div>
