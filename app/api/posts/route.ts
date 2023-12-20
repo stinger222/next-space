@@ -10,26 +10,55 @@ export const GET = async () => {
 }
 
 export const POST = async (req: NextRequest) => {
-  const authorId = (await getServerSession(authOptions))?.user?.id
-  if (!authorId) return NextResponse.json("Not Authorized", { status: 401 })
+  const currentUserId = (await getServerSession(authOptions))?.user?.id
+  if (!currentUserId) return NextResponse.json("Not Authorized", { status: 401 })
 
   const postMessage = (await req.json())?.postMessage?.trim()
   if (!postMessage) return NextResponse.json("Invalid post message", { status: 403 })
-
-  console.log("\n\nTrying to create new post: ")
-  console.log("authorId: ", authorId)
-  console.log("postMessage: ", postMessage, "\n\n")
 
   try {
     await prisma.post.create({
       data: {
         postMessage,
-        authorId
+        authorId: currentUserId
       }
     })
-    return NextResponse.json("Post created successfully", { status: 200 })
   } catch (err) {
     console.error(err)
     return NextResponse.json("Can't create post due to some internal server error", { status: 500 })
   }
+
+  const posts = await prisma.post.findMany({ where: { authorId: currentUserId } })
+
+  return NextResponse.json({ posts }, { status: 200 })
+}
+
+export const DELETE = async (req: NextRequest) => {
+  const currentUserId = (await getServerSession(authOptions))?.user?.id
+  if (!currentUserId) return NextResponse.json("Not Authorized", { status: 401 })
+
+  const toDeletePostId = (await req.json())?.postId
+
+  if (!toDeletePostId) return NextResponse.json("Invalid post ID", { status: 403 })
+
+  const deleted = await prisma.post.deleteMany({
+    where: {
+      authorId: currentUserId,
+      postId: toDeletePostId
+    }
+  })
+
+  if (deleted?.count === 0) {
+    return NextResponse.json("Couldn't delete post due to some internal server error", { status: 500 })
+  }
+
+  const posts = await prisma.post.findMany({
+    where:  {authorId: currentUserId }
+  })
+
+  console.log("posts postspostspostspostspostspostspostspostspostspostsposts, ", posts)
+  
+  
+  return NextResponse.json({ posts }, { status: 200 })
+
 }

@@ -1,5 +1,6 @@
 "use client"
 
+import { PostModel } from "@/types/types"
 import { useSession } from "next-auth/react"
 import { useRouter } from "next/navigation"
 import { useForm } from "react-hook-form"
@@ -9,7 +10,11 @@ const messageNotEmpty = (s: string) => {
   return s.trim().length > 0
 }
 
-const PostCreationForm = () => {
+interface IProps {
+  onPostCreation: (updatedPosts: PostModel[]) => void
+}
+
+const PostCreationForm = ({ onPostCreation }: IProps) => {
   const session = useSession()
   const router = useRouter()
 
@@ -21,7 +26,7 @@ const PostCreationForm = () => {
 
   const onSubmit = async (values: { postMessage: string }) => {
     try {
-      await fetch("/api/posts", {
+      const response = await fetch("/api/posts", {
         method: "POST",
         body: JSON.stringify({
           postMessage: values.postMessage,
@@ -31,7 +36,10 @@ const PostCreationForm = () => {
           "Content-type": "application/json"
         }
       })
+
       methods.reset()
+
+      onPostCreation((await response.json()).posts)
     } catch (err) {
       console.error("Can't create post: ", err)
     }

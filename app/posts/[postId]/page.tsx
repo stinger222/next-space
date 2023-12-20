@@ -19,7 +19,6 @@ export const generateSaticParams = async () => {
 const Posts = async ({ params }: IProps) => {
   const posts: IPost[] = await (await fetch("http://localhost:3000/api/posts")).json()
   const post = posts.find((post) => +post.id === +params.postId)!
-  console.log(post)
 
   if (!post)
     return <h1 className="text-red-600 text-center mt-10">Sorry, no post with such ID: {params.postId}.</h1>

@@ -6,11 +6,11 @@ import { useRouter } from "next/navigation"
 import { useForm } from "react-hook-form"
 
 interface IProps {
-	user: IUser
+  user: IUser
 }
 
 interface IForm {
-  name: string,
+  name: string
   age: string
   image: string
   bio: string
@@ -20,70 +20,85 @@ const ProfileEditForm = ({ user }: IProps) => {
   const session = useSession()
   const router = useRouter()
 
-  const { handleSubmit, register, reset } = useForm<IForm>({
+  const { handleSubmit, register, reset, formState } = useForm<IForm>({
     defaultValues: {
       name: user.name || "",
       age: user.age?.toString() || "",
       image: user.image || "",
       bio: user.bio || ""
-    }
+    },
+    mode: "all"
   })
 
-  const onSubmit = ({name, age, image, bio}: IForm) => {
+  const onSubmit = ({ name, age, image, bio }: IForm) => {
     fetch("/api/users", {
       method: "PUT",
       body: JSON.stringify({
-        name, image, bio, age
+        name,
+        image,
+        bio,
+        age
       }),
       headers: {
         "Content-type": "application/json"
       }
     })
-    .then(() => router.push("/api/users/me")).catch(() => reset())
+      .then(() => router.push("/api/users/me"))
+      .catch(() => reset())
   }
 
   if (session.status === "loading") return <p>Loading...</p> // TODO: Replace with <Loader/>
 
-	return (
-		<form onSubmit={handleSubmit(onSubmit)}>
+  return (
+    <form onSubmit={handleSubmit(onSubmit)}>
       <div className="sm:mx-auto sm:max-w-[70%]">
+        <p className="text-red-500">{formState.errors.name?.message}</p>
         <input
           {...register("name", {
-            required: "Required",
-            minLength: 4,
-            maxLength: 30
+            required: "No name? :((((",
+            minLength: { value: 4, message: "That's kinda small..." },
+            maxLength: { value: 30, message: "😶 Impressive, but... a little to long" }
           })}
           placeholder="Name"
+          className="mb-3"
         />
+
+        <p className="text-red-500">{formState.errors.age?.message}</p>
         <input
           {...register("age", {
-            min: {value: 5, message: "For real? no."},
-            max: {value: 99, message: "Come on, you can't be THAT old"}
+            min: { value: 5, message: "For real? no." },
+            max: { value: 99, message: "Come on, you can't be THAT old" }
           })}
           type="number"
           placeholder="Age"
+          className="mb-3"
         />
+
+        <p className="text-red-500">{formState.errors.image?.message}</p>
         <input
           {...register("image", {
-            pattern: {value: /^https:\/\/.{0,}/, message: "URL should start with \"https://\""}
+            pattern: { value: /^https:\/\/.{0,}/, message: 'URL should start with "https://"' }
           })}
           placeholder="Avatar URL"
+          className="mb-3"
         />
+
         <textarea
-          {...register("bio", {
-          })}
+          {...register("bio", {})}
           placeholder="Couple words about youself?"
           className="box-border min-h-[3em] h-20"
         />
       </div>
 
       <button
-        className="block mx-auto my-8 px-7 py-1 text-xl text-gray-400 font-semibold border-2 border-gray-400 rounded-lg"
+        className="block mx-auto my-8 px-7 py-1 text-xl text-gray-800 font-semibold border-2 border-gray-800 rounded-lg disabled:opacity-40"
         type="submit"
-      >Save
+        disabled={!formState.isValid}
+      >
+        Save
       </button>
-		</form>
-	)
+    </form>
+  )
 }
 
 export default ProfileEditForm

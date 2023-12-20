@@ -75,7 +75,7 @@ const Header = () => {
         bg-blue-600 border-t-2 border-blue-400 top-full xs:static xs:translate-x-0 xs:opacity-100 xs:block xs:border-none"
         ref={navMenuRef}
       >
-        <ul className="relative flex flex-col gap-3 pl-4 text-white underline xs:flex-row xs:no-underline">
+        <ul className="relative flex flex-col gap-3 pl-4 text-lg text-white underline xs:flex-row xs:no-underline">
           <li>
             <Link
               href="/about"
