@@ -19,7 +19,7 @@ const PostsSection = ({ targetUserId, ownerName }: IProps) => {
   const currentUserIsOwner = currentUserId === targetUserId
   
   useEffect(() => {
-    fetch("/api/posts", {
+    fetch(`/api/users/${targetUserId}`, {  // all posts? maybe posts for targetUser?
       headers: {
         "Content-type": "application/json"
       }
@@ -28,7 +28,7 @@ const PostsSection = ({ targetUserId, ownerName }: IProps) => {
         setLoading(false)
         return response.json()
       })
-      .then((posts) => setPosts(posts))
+      .then((user) => setPosts(user.posts))
   }, [targetUserId])
 
   return (

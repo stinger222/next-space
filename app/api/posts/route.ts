@@ -1,5 +1,4 @@
 import { getServerSession } from "next-auth"
-import { IPost } from "../../../types/types"
 import { NextRequest, NextResponse } from "next/server"
 import { authOptions } from "../auth/[...nextauth]/route"
 import { prisma } from "@/lib/prisma"
@@ -29,7 +28,6 @@ export const POST = async (req: NextRequest) => {
   }
 
   const posts = await prisma.post.findMany({ where: { authorId: currentUserId } })
-
   return NextResponse.json({ posts }, { status: 200 })
 }
 
@@ -55,10 +53,6 @@ export const DELETE = async (req: NextRequest) => {
   const posts = await prisma.post.findMany({
     where:  {authorId: currentUserId }
   })
-
-  console.log("posts postspostspostspostspostspostspostspostspostspostsposts, ", posts)
-  
   
   return NextResponse.json({ posts }, { status: 200 })
-
 }

@@ -5,7 +5,8 @@ export const GET = async (req: NextResponse) => {
   const targetId = req.url.split("/users/")[1].split("/")[0]
 
   const user = await prisma.user.findUnique({
-    where: { id: targetId }
+    where: { id: targetId },
+    include: { posts: true }
   })
 
   return NextResponse.json(user)
