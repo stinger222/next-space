@@ -4,6 +4,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { useRef } from "react"
 import { SignInOutButton } from "../ui/SignInOutButton"
+import BurgerIcon from "@/public/burger.svg"
 
 const Header = () => {
   const navMenuRef = useRef<HTMLElement | null>(null)

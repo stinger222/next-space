@@ -3,6 +3,7 @@
 import { signIn, signOut, useSession } from "next-auth/react"
 import Image from "next/image"
 import Loader from "../common/Loader"
+import placeholder from "@/public/avatar-placeholder.png"
 
 export const SignInOutButton = () => {
   const { data, status } = useSession()
@@ -14,7 +15,7 @@ export const SignInOutButton = () => {
       <Image
         height={35}
         width={35}
-        src={data.user?.image || require("../../../public/logo.svg")} // TODO: Add default image
+        src={data.user?.image || placeholder }
         alt="User Avatar"
         title="Sign Out?"
         className="rounded-full cursor-pointer xs:translate-y-[-15%]"

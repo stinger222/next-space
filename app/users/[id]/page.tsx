@@ -1,8 +1,8 @@
 import ErrorPage from "@/app/components/common/ErrorPage"
 import PostsSection from "@/app/components/modules/PostsSection/PostsSection"
+import placeholder from "@/public/avatar-placeholder.png"
 import { prisma } from "@/lib/prisma"
 import Image from "next/image"
-
 interface IProps {
   params: {
     id: string
@@ -37,7 +37,7 @@ const UserProfile = async ({ params }: IProps) => {
             className="mx-auto min-w-[10em] rounded-full border-2 border-gray-300 p-1 shadow-lg shadow-gray-400"
             width="250"
             height="250"
-            src={profileOwner?.image || require("../../../public/logo.svg")}
+            src={profileOwner?.image || placeholder}
             alt="User's Avatar"
           />
         </div>
