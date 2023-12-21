@@ -13,7 +13,6 @@ const Dashboard = async () => {
 
 	return (
 		<div>
-      <pre>{JSON.stringify(user, null, 2)}</pre>
 			<ProfileEditForm user={user}/>
 		</div>
 	)

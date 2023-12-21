@@ -2,11 +2,12 @@
 
 import { signIn, signOut, useSession } from "next-auth/react"
 import Image from "next/image"
+import Loader from "../common/Loader"
 
 export const SignInOutButton = () => {
   const { data, status } = useSession()
 
-  if (status === "loading") return <>...</>
+  if (status === "loading") return <Loader className="h-8 w-8 m-0 border-white border-4"/>
 
   if (status === "authenticated") {
     return (

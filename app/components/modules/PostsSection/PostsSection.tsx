@@ -1,6 +1,6 @@
 "use client"
 
-import { PostModelNoAuthor, PostModelWithAuthor, UserModelWithPosts } from "@/types/types"
+import { PostModelNoAuthor, UserModelWithPosts } from "@/types/types"
 import { useSession } from "next-auth/react"
 import { useEffect, useState } from "react"
 import PostCreationForm from "./PostCreationForm"

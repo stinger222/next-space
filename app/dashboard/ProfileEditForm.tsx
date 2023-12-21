@@ -5,6 +5,7 @@ import { IUser, prisma } from "@/lib/prisma"
 import { useSession } from "next-auth/react"
 import { useRouter } from "next/navigation"
 import { useForm } from "react-hook-form"
+import Loader from "../components/common/Loader"
 
 interface IProps {
   user: IUser
@@ -32,16 +33,19 @@ const ProfileEditForm = ({ user }: IProps) => {
   })
 
   const onSubmit = (values: IForm) => {
-    api
-      .put("api/users", values)
-      .then(() => router.push("/api/users/me"))
-      .catch((err) => {
-        reset()
-        console.error("Can't update user profile:\n", err)
-      })
+    
+    return api
+    .put("api/users", values)
+    .then(() => router.push("/api/users/me"))
+    .catch((err) => {
+      reset()
+      console.error("Can't update user profile:\n", err)
+    })
+    
+    // return new Promise((res) => setTimeout(res, 3000))
   }
 
-  if (session.status === "loading") return <p>Loading...</p> // TODO: Replace with <Loader/>
+  if (session.status === "loading") return <Loader />
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -87,7 +91,7 @@ const ProfileEditForm = ({ user }: IProps) => {
       <button
         className="block mx-auto my-8 px-7 py-1 text-xl text-gray-800 font-semibold border-2 border-gray-800 rounded-lg disabled:opacity-40"
         type="submit"
-        disabled={!formState.isValid}
+        disabled={!formState.isValid || formState.isSubmitting}
       >
         Save
       </button>

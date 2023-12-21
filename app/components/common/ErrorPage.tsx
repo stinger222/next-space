@@ -1,4 +1,4 @@
-import AtIcon from "../../../public/at-icon.svg"
+import AtIcon from "@/public/at-icon.svg"
 import GoBackButton from "./GoBackButton"
 
 interface IProps {

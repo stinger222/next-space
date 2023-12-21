@@ -1,7 +1,1 @@
-const Loading = async () => {
-  return (
-    <div>Loading...</div>
-  )
-}
-
-export default Loading
+export { default } from "../../app/components/common/Loader"

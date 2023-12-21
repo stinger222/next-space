@@ -9,7 +9,7 @@ interface IProps {
   }
 }
 
-export const generateMetadata = async ({ params }: Pick<IProps, "params">) => {
+export const generateMetadata = async ({ params }: IProps) => {
   const user = await prisma.user.findUnique({ where: { id: params.id } })
   return { title: `${user?.name || `@${params.id.substring(0, 6)}`}'s User Profile` }
 }

@@ -4,6 +4,7 @@ import { api } from "@/lib/api"
 import PostCard from "../../common/PostCard"
 import { PostModelNoAuthor, PostModelWithAuthor } from "@/types/types"
 import { AxiosResponse } from "axios"
+import Loader from "../../common/Loader"
 
 interface IProps {
   authorName: string,
@@ -14,7 +15,7 @@ interface IProps {
 }
 
 const PostsList = ({ posts, loading, authorName, currentUserIsOwner, onPostDeletion }: IProps) => {
-  if (loading) return <h1>Loading...</h1>
+  if (loading) return <Loader className="my-20"/>
   if (!posts?.length) return <h1>No Posts here :(</h1>
 
   const handlePostDeletion = (postId: string) => {
