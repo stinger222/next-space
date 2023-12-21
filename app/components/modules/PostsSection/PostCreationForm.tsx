@@ -1,6 +1,6 @@
 "use client"
 
-import { PostModel } from "@/types/types"
+import { PostModelWithAuthor } from "@/types/types"
 import { useSession } from "next-auth/react"
 import { useRouter } from "next/navigation"
 import { useForm } from "react-hook-form"
@@ -11,7 +11,7 @@ const messageNotEmpty = (s: string) => {
 }
 
 interface IProps {
-  onPostCreation: (updatedPosts: PostModel[]) => void
+  onPostCreation: (updatedPosts: PostModelWithAuthor[]) => void
 }
 
 const PostCreationForm = ({ onPostCreation }: IProps) => {
@@ -30,7 +30,7 @@ const PostCreationForm = ({ onPostCreation }: IProps) => {
         method: "POST",
         body: JSON.stringify({
           postMessage: values.postMessage,
-          authorName: session.data?.user?.name || "<Nameless User>"
+          authorName: session.data?.user?.name || `@${session.data?.user?.id?.substring(0, 6)}`
         }),
         headers: {
           "Content-type": "application/json"

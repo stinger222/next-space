@@ -7,4 +7,8 @@ export interface IPost {
   id: number
 }
 
-export type PostModel = Prisma.PostGetPayload<{ include: { author: false } }>
+export type PostModelWithAuthor = Prisma.PostGetPayload<{ include: { author: true } }>
+export type PostModelNoAuthor = Prisma.PostGetPayload<{ include: { author: false } }>
+
+export type UserModelWithPosts = Prisma.UserGetPayload<{ include: { posts: true } }>
+export type UserModelNoPosts = Prisma.UserGetPayload<{ include: { posts: false } }>

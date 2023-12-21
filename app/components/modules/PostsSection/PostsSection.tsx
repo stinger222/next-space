@@ -1,25 +1,27 @@
 "use client"
 
+import { PostModelNoAuthor } from "@/types/types"
+import { useSession } from "next-auth/react"
 import { useEffect, useState } from "react"
 import PostCreationForm from "./PostCreationForm"
 import PostsList from "./PostsList"
-import { useSession } from "next-auth/react"
-import { PostModel } from "@/types/types"
 
 interface IProps {
   targetUserId: string // id of profile owner
-  ownerName: string
+  authorName: string
 }
 
-const PostsSection = ({ targetUserId, ownerName }: IProps) => {
-  const currentUserId = useSession().data?.user?.id // id of authorized user
-  const [posts, setPosts] = useState<PostModel[]>([])
+const PostsSection = ({ targetUserId, authorName }: IProps) => {
+  const currentUserId = useSession().data?.user?.id // id of currently authorized user
+  const [posts, setPosts] = useState<PostModelNoAuthor[]>([])
   const [loading, setLoading] = useState<boolean>(true)
   
   const currentUserIsOwner = currentUserId === targetUserId
   
+  // Fetch target user' posts
   useEffect(() => {
-    fetch(`/api/users/${targetUserId}`, {  // all posts? maybe posts for targetUser?
+    fetch(`/api/users/${targetUserId}`, {
+      cache: "no-cache",
       headers: {
         "Content-type": "application/json"
       }
@@ -30,7 +32,7 @@ const PostsSection = ({ targetUserId, ownerName }: IProps) => {
       })
       .then((user) => setPosts(user.posts))
   }, [targetUserId])
-
+  
   return (
     <div>
       <h2 className="pt-8 pb-3">Posts:</h2>
@@ -39,7 +41,7 @@ const PostsSection = ({ targetUserId, ownerName }: IProps) => {
       }
       <PostsList
         posts={posts}
-        ownerName={ownerName}
+        authorName={authorName}
         loading={loading}
         currentUserIsOwner={currentUserIsOwner}
         onPostDeletion={setPosts}

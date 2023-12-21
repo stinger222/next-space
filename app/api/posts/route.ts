@@ -4,7 +4,10 @@ import { authOptions } from "../auth/[...nextauth]/route"
 import { prisma } from "@/lib/prisma"
 
 export const GET = async () => {
-  const posts = await prisma.post.findMany()
+  const posts = await prisma.post.findMany({
+    include: { author: true }
+  })
+
   return NextResponse.json(posts)
 }
 

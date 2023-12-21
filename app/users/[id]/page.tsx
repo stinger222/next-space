@@ -18,14 +18,15 @@ const UserProfile = async ({ params }: IProps) => {
   const profileOwner = await prisma.user.findUnique({ where: { id: params.id } })
   const ownerName = profileOwner?.name || `@${params.id.substring(0, 6)}`
 
-  if (!profileOwner)
+  if (!profileOwner) {
     return (
       <ErrorPage
         header="User not found"
         description="Couldn't find the user you are looking for.&nbsp;Please check the ID and try again."
       />
     )
-
+  }
+  
   return (
     <div className="flex flex-col gap-5">
       <div className="flex flex-col gap-5 sm:flex-row">
@@ -49,7 +50,7 @@ const UserProfile = async ({ params }: IProps) => {
         </div>
       </div>
 
-      <PostsSection targetUserId={params.id} ownerName={ownerName} />
+      <PostsSection targetUserId={params.id} authorName={ownerName} />
     </div>
   )
 }

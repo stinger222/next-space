@@ -1,20 +1,18 @@
 "use client"
 
-import { PostModel } from "@/types/types"
 import PostCard from "../../common/PostCard"
-
-
+import { PostModelNoAuthor, PostModelWithAuthor } from "@/types/types"
 
 interface IProps {
-  posts: PostModel[]
-  ownerName: string,
+  authorName: string,
+  posts: PostModelNoAuthor[],
   loading: boolean,
   currentUserIsOwner: boolean,
-  onPostDeletion: (updatedPosts: PostModel[]) => void
+  onPostDeletion: (updatedPosts: PostModelWithAuthor[]) => void
 }
 
 // TODO: User Axios over fetch and handle errors
-const PostsList = ({ posts, ownerName, loading, currentUserIsOwner, onPostDeletion }: IProps) => {
+const PostsList = ({ posts, loading, authorName, currentUserIsOwner, onPostDeletion }: IProps) => {
   if (loading) return <h1>Loading...</h1>
   if (!posts?.length) return <h1>No Posts here :(</h1>
 
@@ -30,7 +28,7 @@ const PostsList = ({ posts, ownerName, loading, currentUserIsOwner, onPostDeleti
     })
       .then(response => response.json())
       .then(data => {
-        console.log("Post successfully deleted!:", data.posts)
+        console.log("Post successfully deleted!")
         onPostDeletion(data.posts)
       })
   }
@@ -40,9 +38,9 @@ const PostsList = ({ posts, ownerName, loading, currentUserIsOwner, onPostDeleti
       {posts.map((post) => (
         <PostCard
           editable={currentUserIsOwner}
-          ownerName={ownerName}
-          post={post}
-          onDelete={handlePostDeletion}
+          authorName={authorName} // TODO: make user.name required in the prisma schema
+          postMessage={post.postMessage}
+          onDelete={() => handlePostDeletion(post.postId)}
           key={post.postId}
         />
       ))}
