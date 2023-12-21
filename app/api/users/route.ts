@@ -23,13 +23,9 @@ export const PUT = async (req: NextRequest) => {
       data: { name, image, age: +age || null, bio}
     })
 
-    return NextResponse.json({
-      name, image, age, bio, message: "User profile data was successfully updated"
-    }, {status: 200})
+    return NextResponse.json({ name, image, age, bio }, {status: 200})
   } catch(err) {
     console.error("Can't update user\n", err)
-    return NextResponse.json({
-      message: "Can't update user"
-    }, {status: 404})
+    return NextResponse.json({ message: "Can't update user" }, {status: 404})
   }
 }

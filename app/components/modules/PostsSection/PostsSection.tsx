@@ -1,10 +1,12 @@
 "use client"
 
-import { PostModelNoAuthor } from "@/types/types"
+import { PostModelNoAuthor, PostModelWithAuthor, UserModelWithPosts } from "@/types/types"
 import { useSession } from "next-auth/react"
 import { useEffect, useState } from "react"
 import PostCreationForm from "./PostCreationForm"
 import PostsList from "./PostsList"
+import { api } from "@/lib/api"
+import { AxiosResponse } from "axios"
 
 interface IProps {
   targetUserId: string // id of profile owner
@@ -20,17 +22,17 @@ const PostsSection = ({ targetUserId, authorName }: IProps) => {
   
   // Fetch target user' posts
   useEffect(() => {
-    fetch(`/api/users/${targetUserId}`, {
-      cache: "no-cache",
-      headers: {
-        "Content-type": "application/json"
-      }
-    })
-      .then((response) => {
-        setLoading(false)
-        return response.json()
+    api
+      .get(`api/users/${targetUserId}`)
+      .then((response: AxiosResponse<UserModelWithPosts>) => {
+        setPosts(response.data.posts)
       })
-      .then((user) => setPosts(user.posts))
+      .catch((err) => {
+        console.error("Can't fetch user:\n", err)
+      })
+      .finally(() => {
+        setLoading(false)
+      })
   }, [targetUserId])
   
   return (

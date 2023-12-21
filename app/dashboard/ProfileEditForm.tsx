@@ -1,5 +1,6 @@
 "use client"
 
+import { api } from "@/lib/api"
 import { IUser, prisma } from "@/lib/prisma"
 import { useSession } from "next-auth/react"
 import { useRouter } from "next/navigation"
@@ -30,21 +31,14 @@ const ProfileEditForm = ({ user }: IProps) => {
     mode: "all"
   })
 
-  const onSubmit = ({ name, age, image, bio }: IForm) => {
-    fetch("/api/users", {
-      method: "PUT",
-      body: JSON.stringify({
-        name,
-        image,
-        bio,
-        age
-      }),
-      headers: {
-        "Content-type": "application/json"
-      }
-    })
+  const onSubmit = (values: IForm) => {
+    api
+      .put("api/users", values)
       .then(() => router.push("/api/users/me"))
-      .catch(() => reset())
+      .catch((err) => {
+        reset()
+        console.error("Can't update user profile:\n", err)
+      })
   }
 
   if (session.status === "loading") return <p>Loading...</p> // TODO: Replace with <Loader/>

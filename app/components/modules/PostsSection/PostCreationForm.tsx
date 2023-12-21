@@ -1,6 +1,8 @@
 "use client"
 
-import { PostModelWithAuthor } from "@/types/types"
+import { api } from "@/lib/api"
+import { PostModelNoAuthor, PostModelWithAuthor } from "@/types/types"
+import { AxiosResponse } from "axios"
 import { useSession } from "next-auth/react"
 import { useRouter } from "next/navigation"
 import { useForm } from "react-hook-form"
@@ -24,25 +26,22 @@ const PostCreationForm = ({ onPostCreation }: IProps) => {
     }
   })
 
-  const onSubmit = async (values: { postMessage: string }) => {
-    try {
-      const response = await fetch("/api/posts", {
-        method: "POST",
-        body: JSON.stringify({
-          postMessage: values.postMessage,
-          authorName: session.data?.user?.name || `@${session.data?.user?.id?.substring(0, 6)}`
-        }),
-        headers: {
-          "Content-type": "application/json"
-        }
+  const onSubmit = (values: { postMessage: string }) => {
+    console.log("\nTrying to create new post...")
+    
+    api
+    .post("api/posts", {
+      postMessage: values.postMessage,
+      authorName: session.data?.user?.name || `@${session.data?.user?.id?.substring(0, 6)}`
       })
-
-      methods.reset()
-
-      onPostCreation((await response.json()).posts)
-    } catch (err) {
-      console.error("Can't create post: ", err)
-    }
+      .then((response: AxiosResponse<{ posts: PostModelWithAuthor[] }>) => {
+        methods.reset()
+        onPostCreation(response.data.posts)
+        console.log("Post successfully created!")
+      })
+      .catch((err) => {
+        console.error("Can't create post: ", err)
+      })
   }
 
   if (session.status === "unauthenticated") router.push("/api/auth/signin")
