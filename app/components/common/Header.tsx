@@ -4,7 +4,6 @@ import Image from "next/image"
 import Link from "next/link"
 import { useRef } from "react"
 import { SignInOutButton } from "../ui/SignInOutButton"
-import BurgerIcon from "@/public/burger.svg"
 
 const Header = () => {
   const navMenuRef = useRef<HTMLElement | null>(null)
@@ -87,23 +86,15 @@ const Header = () => {
           </li>
           <li>
             <Link
-              href="/???"
-              onClick={closeNavMenu}
-            >
-              ???
-            </Link>
-          </li>
-          <li>
-            <Link
               href="/users"
               onClick={closeNavMenu}
             >
               Users
             </Link>
           </li>
-          <li className="-order-1 xs:order-none shrink-0">
+          {/* <li className="-order-1 xs:order-none shrink-0"> */}
             <SignInOutButton />
-          </li>
+          {/* </li> */}
         </ul>
       </nav>
     </header>
