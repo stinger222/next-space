@@ -40,9 +40,7 @@ const ProfileEditForm = ({ user }: IProps) => {
     .catch((err) => {
       reset()
       console.error("Can't update user profile:\n", err)
-    })
-    
-    // return new Promise((res) => setTimeout(res, 3000))
+    }) 
   }
 
   if (session.status === "loading") return <Loader />

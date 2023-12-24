@@ -3,6 +3,10 @@ import PostsSection from "@/app/components/modules/PostsSection/PostsSection"
 import placeholder from "@/public/avatar-placeholder.png"
 import { prisma } from "@/lib/prisma"
 import Image from "next/image"
+import Button from "@/app/components/ui/Button"
+import { getServerSession } from "next-auth"
+import { authOptions } from "@/app/api/auth/[...nextauth]/route"
+import FollowButton from "@/app/components/modules/FollowSetion/FollowButton"
 interface IProps {
   params: {
     id: string
@@ -15,7 +19,9 @@ export const generateMetadata = async ({ params }: IProps) => {
 }
 
 const UserProfile = async ({ params }: IProps) => {
-  const profileOwner = await prisma.user.findUnique({ where: { id: params.id } })
+  const session = await getServerSession(authOptions)
+
+  const profileOwner = await prisma.user.findUnique({ where: { id: params.id }, include: { followedBy: true }})
   const ownerName = profileOwner?.name || `@${params.id.substring(0, 6)}`
 
   if (!profileOwner) {
@@ -34,12 +40,15 @@ const UserProfile = async ({ params }: IProps) => {
           <h1 className="text-4xl mb-5 w-full text-center max-w-sm max-lines-2">{ownerName}</h1>
 
           <Image
-            className="mx-auto min-w-[10em] rounded-full border-2 border-gray-300 p-1 shadow-lg shadow-gray-400"
+            className="mx-auto min-w-[10em] rounded-full border-2 border-gray-300 p-1 shadow-lg shadow-gray-400 #23c9f3"
             width="250"
             height="250"
             src={profileOwner?.image || placeholder}
             alt="User's Avatar"
           />
+
+          <FollowButton session={session} profileOwner={profileOwner}/>
+
         </div>
 
         <div>
