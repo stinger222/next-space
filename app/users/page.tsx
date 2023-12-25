@@ -8,10 +8,7 @@ const Users = async () => {
   return (
     <div className="flex flex-wrap justify-center gap-x-10 gap-y-5">
       {users.map((user) => (
-        <UserCard
-          key={user.id}
-          {...user}
-        />
+        <UserCard key={user.id} user={user} />
       ))}
     </div>
   )

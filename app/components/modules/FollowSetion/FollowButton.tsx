@@ -3,7 +3,7 @@
 import { Prisma } from "@prisma/client"
 import Button from "../../ui/Button"
 import { Session } from "next-auth"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { api } from "@/lib/api"
 
 interface IProps {
@@ -15,9 +15,9 @@ const FollowButton = ({ session, profileOwner }: IProps) => {
   const currentUserIsOwner = session?.user?.id === profileOwner.id  
   const [isFetching, setIsFetching] = useState(false)
   const [currentUserIsFollower, setCurrentUserIsFollower] = useState(() => (
-    profileOwner?.followedBy.some(user => user.followingId === profileOwner.id
-  )))
-      
+    profileOwner?.followedBy.some((followEdge) => followEdge.followerId === session?.user?.id)
+  ))
+    
   const handleFollowUnfollow = () => {
     setIsFetching(true)
     if (currentUserIsFollower) {
@@ -35,16 +35,15 @@ const FollowButton = ({ session, profileOwner }: IProps) => {
     }
   }
 
-  if (currentUserIsOwner) return
+  if (currentUserIsOwner || !session?.user?.id) return
   
 	return (
     <Button
       disabled={isFetching}
-      className="mt-8"
       variant="dark"
       onClick={handleFollowUnfollow}
     >
-      {currentUserIsFollower ? "Unfollow" : "Want to follow?"}
+      {currentUserIsFollower ? "Unfollow" : "Follow"}
     </Button>
 
 	)

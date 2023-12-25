@@ -1,1 +1,1 @@
-export { default } from "../../../app/components/common/Loader"
+export { default } from "@/app/components/common/Loader"

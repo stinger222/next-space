@@ -9,12 +9,15 @@ type IProps = {
 } & ButtonHTMLAttributes<HTMLButtonElement>
 
 const Button = ({ variant = "light", className, children, ...rest }: IProps) => {
-  return <button
-    className={`btn ${variant} ${className}`}
-    {...rest}
-  >
-    {children}
-  </button>
+  // TODO: instead of just adding .light/.dark, declare there classes here as strings and use twMerge
+  return (
+    <button
+      className={`btn ${variant} ${className}`}
+      {...rest}
+    >
+      {children}
+    </button>
+  )
 }
 
 export default Button

@@ -3,10 +3,11 @@ import PostsSection from "@/app/components/modules/PostsSection/PostsSection"
 import placeholder from "@/public/avatar-placeholder.png"
 import { prisma } from "@/lib/prisma"
 import Image from "next/image"
-import Button from "@/app/components/ui/Button"
 import { getServerSession } from "next-auth"
 import { authOptions } from "@/app/api/auth/[...nextauth]/route"
 import FollowButton from "@/app/components/modules/FollowSetion/FollowButton"
+import Button from "@/app/components/ui/Button"
+import Link from "next/link"
 interface IProps {
   params: {
     id: string
@@ -47,7 +48,13 @@ const UserProfile = async ({ params }: IProps) => {
             alt="User's Avatar"
           />
 
-          <FollowButton session={session} profileOwner={profileOwner}/>
+          <div className="flex gap-2 mt-8">
+            <Link href={`/users/${profileOwner.id}/followers`}>
+              <Button variant="light">Followers</Button>
+            </Link>
+
+            <FollowButton session={session} profileOwner={profileOwner}/>
+          </div>
 
         </div>
 
