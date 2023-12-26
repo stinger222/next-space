@@ -22,7 +22,10 @@ export const generateMetadata = async ({ params }: IProps) => {
 const UserProfile = async ({ params }: IProps) => {
   const session = await getServerSession(authOptions)
 
-  const profileOwner = await prisma.user.findUnique({ where: { id: params.id }, include: { followedBy: true }})
+  const profileOwner = await prisma.user.findUnique({
+    where: { id: params.id },
+    include: { followedBy: true, posts: true}
+  })
   const ownerName = profileOwner?.name || `@${params.id.substring(0, 6)}`
 
   if (!profileOwner) {
@@ -66,7 +69,7 @@ const UserProfile = async ({ params }: IProps) => {
         </div>
       </div>
 
-      <PostsSection targetUserId={params.id} authorName={ownerName} />
+      <PostsSection targetUser={profileOwner} />
     </div>
   )
 }

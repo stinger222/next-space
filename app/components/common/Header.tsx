@@ -19,7 +19,7 @@ const Header = () => {
   }
 
   return (
-    <header className="container relative flex justify-between p-3 mb-3 bg-blue-600 select-none xs:items-center">
+    <header className="container relative flex justify-between p-3 mb-3 rounded-b-[3px] bg-blue-600 select-none xs:items-center">
       <Link
         href="/"
         onClick={closeNavMenu}
@@ -78,10 +78,10 @@ const Header = () => {
         <ul className="relative flex flex-col gap-3 pl-4 text-lg text-white underline xs:flex-row xs:no-underline">
           <li>
             <Link
-              href="/about"
+              href="/followed"
               onClick={closeNavMenu}
             >
-              About
+              Followed
             </Link>
           </li>
           <li>
@@ -92,9 +92,15 @@ const Header = () => {
               Users
             </Link>
           </li>
-          {/* <li className="-order-1 xs:order-none shrink-0"> */}
-            <SignInOutButton />
-          {/* </li> */}
+          <li>
+            <Link
+              href="/about"
+              onClick={closeNavMenu}
+            >
+              About
+            </Link>
+          </li>
+          <SignInOutButton />
         </ul>
       </nav>
     </header>
