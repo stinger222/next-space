@@ -7,23 +7,24 @@ import PostCreationForm from "./PostCreationForm"
 import PostsList from "./PostsList"
 import { api } from "@/lib/api"
 import { AxiosResponse } from "axios"
+import { Prisma } from "@prisma/client"
 
 interface IProps {
-  targetUserId: string // id of profile owner
-  authorName: string
+  targetUser: Prisma.UserGetPayload<{ include: { posts: true } }>
 }
 
-const PostsSection = ({ targetUserId, authorName }: IProps) => {
-  const currentUserId = useSession().data?.user?.id // id of currently authorized user
-  const [posts, setPosts] = useState<PostModelNoAuthor[]>([])
+const PostsSection = ({ targetUser }: IProps) => {
+  const session = useSession()  // id of currently authorized user
+  const currentUserId = session.data?.user?.id  // id of currently authorized user
+  const [posts, setPosts] = useState<PostModelNoAuthor[]>(targetUser.posts)
   const [loading, setLoading] = useState<boolean>(true)
   
-  const currentUserIsOwner = currentUserId === targetUserId
+  const currentUserIsOwner = currentUserId === targetUser.id
   
   // Fetch target user' posts
   useEffect(() => {
     api
-      .get(`api/users/${targetUserId}`)
+      .get(`api/users/${targetUser.id}`)
       .then((response: AxiosResponse<UserModelWithPosts>) => {
         setPosts(response.data.posts)
       })
@@ -33,7 +34,7 @@ const PostsSection = ({ targetUserId, authorName }: IProps) => {
       .finally(() => {
         setLoading(false)
       })
-  }, [targetUserId])
+  }, [targetUser.id])
   
   return (
     <div>
@@ -43,10 +44,10 @@ const PostsSection = ({ targetUserId, authorName }: IProps) => {
       }
       <PostsList
         posts={posts}
-        authorName={authorName}
         loading={loading}
         currentUserIsOwner={currentUserIsOwner}
         onPostDeletion={setPosts}
+        author={targetUser}
       />
     </div>
   )

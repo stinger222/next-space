@@ -1,15 +1,31 @@
+import { IPostAuthor } from "@/types/types"
+import placeholder from "@/public/avatar-placeholder.png"
+import Image from "next/image"
+import Link from "next/link"
 interface IProps {
 	editable: boolean,
-  authorName: string,
   postMessage: string,
+  author: IPostAuthor,
   onDelete?: () => void
 }
 
-const PostCard = ({ editable = false, authorName, postMessage, onDelete }: IProps) => {
+const PostCard = ({ editable = false, author, postMessage, onDelete }: IProps) => {
   return (
     <div className="relative py-2 px-4 mb-4 bg-gray-100 rounded-xl">
-      <h3 className="py-2 font-semibold">{authorName}</h3>
-      <p className="pl-2 text-xl font-mono break-words">{postMessage}</p>
+      <h3 className="py-2 font-semibold">
+        <Link href={`/users/${author.id}`}>
+          <Image
+            height={40}
+            width={40}
+            src={author.image || placeholder }
+            alt="User Avatar"
+            className="inline-block mr-3 p-0.5 shadow-sm shadow-gray-500 rounded-full box-content"
+          />
+          { author?.name ?? `@${author.id.substring(0, 6)}` }
+        </Link>
+      </h3>
+        
+      <p className="pl-2 text-xl font-mono break-words">{ postMessage }</p>
       
       {editable &&
         <button

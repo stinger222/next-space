@@ -2,19 +2,20 @@
 
 import { api } from "@/lib/api"
 import PostCard from "../../common/PostCard"
-import { PostModelNoAuthor, PostModelWithAuthor } from "@/types/types"
+import { IPostAuthor, PostModelNoAuthor, PostModelWithAuthor } from "@/types/types"
 import { AxiosResponse } from "axios"
 import Loader from "../../common/Loader"
+import { Prisma } from "@prisma/client"
 
 interface IProps {
-  authorName: string,
   posts: PostModelNoAuthor[],
   loading: boolean,
   currentUserIsOwner: boolean,
+  author: Prisma.UserGetPayload<{ include: { posts: true } }>
   onPostDeletion: (updatedPosts: PostModelWithAuthor[]) => void
 }
 
-const PostsList = ({ posts, loading, authorName, currentUserIsOwner, onPostDeletion }: IProps) => {
+const PostsList = ({ posts, loading, author, currentUserIsOwner, onPostDeletion }: IProps) => {
   if (loading) return <Loader className="my-20"/>
   if (!posts?.length) return <h1>No Posts here :(</h1>
 
@@ -34,15 +35,23 @@ const PostsList = ({ posts, loading, authorName, currentUserIsOwner, onPostDelet
 
   return (
     <div className="flex flex-col-reverse">
-      {posts.map((post) => (
-        <PostCard
-          editable={currentUserIsOwner}
-          authorName={authorName} // TODO: make user.name required in the prisma schema
-          postMessage={post.postMessage}
-          onDelete={() => handlePostDeletion(post.postId)}
-          key={post.postId}
-        />
-      ))}
+      {posts.map((post) => {
+        const _author: IPostAuthor = {
+          name: author.name, // TODO: make user.name required in the prisma schema and handle "" in the auth callback
+          id: author.id,
+          image: author.image
+        }
+        
+        return (
+          <PostCard
+            author={_author}
+            editable={currentUserIsOwner}
+            postMessage={post.postMessage}
+            onDelete={() => handlePostDeletion(post.postId)}
+            key={post.postId}
+          />
+        )
+      })}
     </div>
   )
 }

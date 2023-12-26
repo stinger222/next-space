@@ -25,7 +25,8 @@ const PostCreationForm = ({ onPostCreation }: IProps) => {
   const methods = useForm({
     defaultValues: {
       postMessage: ""
-    }
+    },
+    mode: "onChange"
   })
 
   const onSubmit = (values: { postMessage: string }) => {
@@ -50,11 +51,14 @@ const PostCreationForm = ({ onPostCreation }: IProps) => {
 
   return (
     <form
-      className="mb-5 flex gap-3 sm:mb-8"
+      className="mb-5 flex gap-3 relative sm:mb-8"
       onSubmit={methods.handleSubmit(onSubmit)}
     >
       <input
-        {...methods.register("postMessage", { validate: messageNotEmpty })}
+        {...methods.register("postMessage", {
+          validate: messageNotEmpty,
+          maxLength: { value: 200, message: "Max length is 200 symbols" }
+        })}
         placeholder="What's new?"
         disabled={isCreating}
         className="bg-white border border-gray-300 shadow-none text-xl disabled:opacity-50"
@@ -62,10 +66,13 @@ const PostCreationForm = ({ onPostCreation }: IProps) => {
       <button
         type="submit"
         className="btn border-gray-300"
-        disabled={methods.formState.isSubmitting}
+        disabled={methods.formState.isSubmitting || !!methods.formState.errors.postMessage}
       >
         &gt;
       </button>
+
+      <p className="absolute -bottom-6 left-3 font-semibold text-red-500">{methods.formState.errors.postMessage?.message}</p>
+      
     </form>
   )
 }
