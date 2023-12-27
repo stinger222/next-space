@@ -16,7 +16,7 @@ interface IProps {
 
 export const generateMetadata = async ({ params }: IProps) => {
   const user = await prisma.user.findUnique({ where: { id: params.id } })
-  return { title: `${user?.name || `@${params.id.substring(0, 6)}`}'s User Profile` }
+  return { title: `${user?.name}'s User Profile` }
 }
 
 const UserProfile = async ({ params }: IProps) => {
@@ -26,7 +26,7 @@ const UserProfile = async ({ params }: IProps) => {
     where: { id: params.id },
     include: { followedBy: true, posts: true}
   })
-  const ownerName = profileOwner?.name || `@${params.id.substring(0, 6)}`
+  const ownerName = profileOwner?.name
 
   if (!profileOwner) {
     return (
@@ -38,8 +38,8 @@ const UserProfile = async ({ params }: IProps) => {
   }
   
   return (
-    <div className="flex flex-col gap-5">
-      <div className="flex flex-col gap-5 sm:flex-row">
+    <main className="flex flex-col gap-5">
+      <section className="flex flex-col gap-5 sm:flex-row">
         <div className="flex flex-col align-bottom items-center w-full sm:max-w-fit ">
           <h1 className="text-4xl mb-5 w-full text-center max-w-sm max-lines-2">{ownerName}</h1>
 
@@ -67,10 +67,10 @@ const UserProfile = async ({ params }: IProps) => {
           <h3>Age:</h3>
           <p>{profileOwner?.age || "???"}</p>
         </div>
-      </div>
+      </section>
 
       <PostsSection targetUser={profileOwner} />
-    </div>
+    </main>
   )
 }
 

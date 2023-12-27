@@ -30,7 +30,7 @@ const Followed = async () => {
   })
 
 	return (
-		<div>
+		<main>
 			<h1 className="mb-10">Followed Posts</h1>
       <div className="flex flex-col-reverse">
         {
@@ -53,7 +53,7 @@ const Followed = async () => {
           })
         }
       </div>
-		</div>
+		</main>
 	)
 }
 

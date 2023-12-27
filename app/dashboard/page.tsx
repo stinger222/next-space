@@ -12,9 +12,9 @@ const Dashboard = async () => {
   const user = (await prisma.user.findUnique({ where: {id: userId} })) as IUser
 
 	return (
-		<div>
+		<main>
 			<ProfileEditForm user={user}/>
-		</div>
+		</main>
 	)
 }
 

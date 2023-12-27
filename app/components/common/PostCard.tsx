@@ -21,7 +21,7 @@ const PostCard = ({ editable = false, author, postMessage, onDelete }: IProps) =
             alt="User Avatar"
             className="inline-block mr-3 p-0.5 shadow-sm shadow-gray-500 rounded-full box-content"
           />
-          { author?.name ?? `@${author.id.substring(0, 6)}` }
+          { author?.name }
         </Link>
       </h3>
         

@@ -37,7 +37,7 @@ const PostsSection = ({ targetUser }: IProps) => {
   }, [targetUser.id])
   
   return (
-    <div>
+    <section>
       <h2 className="pt-8 pb-3">Posts:</h2>
       {currentUserIsOwner && 
         <PostCreationForm onPostCreation={setPosts} />
@@ -49,7 +49,7 @@ const PostsSection = ({ targetUser }: IProps) => {
         onPostDeletion={setPosts}
         author={targetUser}
       />
-    </div>
+    </section>
   )
 }
 
