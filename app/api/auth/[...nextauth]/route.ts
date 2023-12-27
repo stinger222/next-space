@@ -17,6 +17,11 @@ export const authOptions: NextAuthOptions = {
       if (session?.user) {
         (session.user as any).id = user.id
       }
+
+      if (session.user?.name?.trim?.() == "") {
+        session.user.name = `@${user.id.substring(0, 6)}`
+      }
+      
       return session
     }
   }
