@@ -1,5 +1,5 @@
 # What is this app?
-This is practical project that helped me to grasp essential Next.js 13 famework features while building simple social platform with a handful of basic features
+This is a practical project that helped me to grasp essential Next.js 13 famework features while building simple social platform with a handful of basic features
 <br/>
 
 ## Tech Stack
