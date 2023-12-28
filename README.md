@@ -21,8 +21,8 @@ This is practical project that helped me to grasp essential Next.js 13 famework 
 </details>
    
 ## Features
-  - Create and delete twitter-like messages on Your profile
-  - Follow users and kep track of what they post
+  - Create and delete twitter-like messages on your profile page
+  - Follow users and keep track of what they post
   - Edit your profile info
 
 ## Development
