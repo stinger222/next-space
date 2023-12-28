@@ -1,13 +1,16 @@
-import ErrorPage from "@/app/components/common/ErrorPage"
-import PostsSection from "@/app/components/modules/PostsSection/PostsSection"
-import placeholder from "@/public/avatar-placeholder.png"
-import { prisma } from "@/lib/prisma"
-import Image from "next/image"
 import { getServerSession } from "next-auth"
-import { authOptions } from "@/app/api/auth/[...nextauth]/route"
-import FollowButton from "@/app/components/modules/FollowSetion/FollowButton"
-import Button from "@/app/components/ui/Button"
+import Image from "next/image"
 import Link from "next/link"
+import { prisma } from "@/lib/prisma"
+import Button from "@/app/components/ui/Button"
+import ErrorPage from "@/app/components/common/ErrorPage"
+import FollowButton from "@/app/components/modules/FollowSetion/FollowButton"
+import PostsSection from "@/app/components/modules/PostsSection/PostsSection"
+import { authOptions } from "@/app/api/auth/[...nextauth]/route"
+import placeholder from "@/public/avatar-placeholder.png"
+import { ReactElement } from "react"
+import EditIcon from "@/public/edit.svg"
+
 interface IProps {
   params: {
     id: string
@@ -24,9 +27,10 @@ const UserProfile = async ({ params }: IProps) => {
 
   const profileOwner = await prisma.user.findUnique({
     where: { id: params.id },
-    include: { followedBy: true, posts: true}
+    include: { followedBy: true, posts: true }
   })
-  const ownerName = profileOwner?.name
+
+  const currentUserIsOwner = session?.user?.id === profileOwner?.id
 
   if (!profileOwner) {
     return (
@@ -39,9 +43,17 @@ const UserProfile = async ({ params }: IProps) => {
   
   return (
     <main className="flex flex-col gap-5">
-      <section className="flex flex-col gap-5 sm:flex-row">
+      <section className="relative flex flex-col gap-7 sm:flex-row">
         <div className="flex flex-col align-bottom items-center w-full sm:max-w-fit ">
-          <h1 className="text-4xl mb-5 w-full text-center max-w-sm max-lines-2">{ownerName}</h1>
+          <h1 className="mb-5 w-full text-4xl text-center max-w-sm max-lines-2">
+            {profileOwner.name}
+          </h1>
+          
+          {currentUserIsOwner && 
+            <Link href="/dashboard">
+              <EditIcon className="absolute top-0 right-2 p-1 h-10 w-10 fill-gray-700"/>
+            </Link>
+          }
 
           <Image
             className="mx-auto min-w-[10em] rounded-full border-2 border-gray-300 p-1 shadow-lg shadow-gray-400 #23c9f3"
@@ -53,25 +65,56 @@ const UserProfile = async ({ params }: IProps) => {
 
           <div className="flex gap-2 mt-8">
             <Link href={`/users/${profileOwner.id}/followers`}>
-              <Button variant="light">Followers</Button>
+              <Button variant="light">
+                Followers
+                <span className="ml-2 font-normal text-slate-400">{profileOwner.followedBy.length}</span>
+              </Button>
             </Link>
 
             <FollowButton session={session} profileOwner={profileOwner}/>
           </div>
-
         </div>
 
         <div>
-          <h3>Bio:</h3>
-          <p>{profileOwner?.bio || "This user didn't provided anything here :("}</p>
-          <h3>Age:</h3>
-          <p>{profileOwner?.age || "???"}</p>
+          <RenderIfCoreExists core={profileOwner.age}>
+            <h3 className="text-[24px] font-semibold">Age</h3>
+            <p>{profileOwner?.age} years old</p>
+          </RenderIfCoreExists>
+          
+          <RenderIfCoreExists core={profileOwner.location}>
+            <h3 className="mt-4 text-[24px] font-semibold">Location</h3>
+            <p>{profileOwner?.location}</p>
+          </RenderIfCoreExists>
+
+          <RenderIfCoreExists core={profileOwner.hometown}>
+            <h3 className="mt-4 text-[24px] font-semibold">Hometown</h3>
+            <p>{profileOwner?.hometown}</p>
+          </RenderIfCoreExists>
+
+          <RenderIfCoreExists core={profileOwner.education}>
+            <h3 className="mt-4 text-[24px] font-semibold">Education</h3>
+            <p>{profileOwner?.education}</p>
+          </RenderIfCoreExists>
+          
+          <RenderIfCoreExists core={profileOwner.bio}>
+            <h3 className="mt-4 text-[24px] font-semibold">Bio</h3>
+            <p>{profileOwner?.bio}</p>
+          </RenderIfCoreExists>
+
         </div>
       </section>
 
       <PostsSection targetUser={profileOwner} />
     </main>
   )
+}
+
+const RenderIfCoreExists = ({core, children}: {core: any, children: ReactElement[]}) => {
+  if (!core) return 
+  
+  return <div>
+    {children}
+  </div>
 }
 
 export default UserProfile

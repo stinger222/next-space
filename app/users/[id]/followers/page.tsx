@@ -3,7 +3,6 @@ import Image from "next/image"
 import { prisma } from "@/lib/prisma"
 import ErrorPage from "@/app/components/common/ErrorPage"
 import avatarPlaceholder from "@/public/avatar-placeholder-light.png"
-
 interface IProps {
 	params: {
     id: string

@@ -11,7 +11,7 @@ interface IProps {
 
 const PostCard = ({ editable = false, author, postMessage, onDelete }: IProps) => {
   return (
-    <div className="relative py-2 px-4 mb-4 bg-gray-100 rounded-xl">
+    <div className="relative py-2 px-4 mb-4 bg-gray-100 rounded-xl shadow-md">
       <h3 className="py-2 font-semibold">
         <Link href={`/users/${author.id}`}>
           <Image

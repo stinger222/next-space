@@ -9,23 +9,24 @@ export const GET = async () => {
 }
 
 export const PUT = async (req: NextRequest) => {
-  const userId = (await getServerSession(authOptions))?.user?.id
+  const session = (await getServerSession(authOptions))
+  const currentUserId = session?.user?.id
   
-  if (!userId) return NextResponse.json({
+  if (!currentUserId) return NextResponse.json({
     message: "No user ID provided in the requestbody"
   },{ status: 403 })
   
-  const { name, age, image, bio } = await req.json()
+  const { name, age, location, hometown, education, image, bio } = await req.json()
 
   try {
     await prisma.user.update({
-      where: { id: userId },
-      data: { name, image, age: +age || null, bio}
+      where: { id: currentUserId },
+      data: { name, image, age: +age || null, location: location || "", hometown: hometown || "", education: education || "", bio }
     })
 
-    return NextResponse.json({ name, image, age, bio }, {status: 200})
+    return NextResponse.json({message: "success"}, {status: 200})
   } catch(err) {
     console.error("Can't update user\n", err)
-    return NextResponse.json({ message: "Can't update user" }, {status: 404})
+    return NextResponse.json({ message: "Can't update user" }, {status: 500})
   }
 }

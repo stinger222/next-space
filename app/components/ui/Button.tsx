@@ -12,7 +12,7 @@ const Button = ({ variant = "light", className, children, ...rest }: IProps) => 
   // TODO: instead of just adding .light/.dark, declare there classes here as strings and use twMerge
   return (
     <button
-      className={`btn ${variant} ${className}`}
+      className={`btn ${variant} ${className || ""}`}
       {...rest}
     >
       {children}

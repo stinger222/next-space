@@ -24,7 +24,7 @@ import Link from "next/link"
       </h1>
 
       <p className="mt-1 text-center text-[19px] text-gray-500 font-medium">
-        Completely useless demo application intended to practice <br /> some Next.js Framework&apos; basics
+        Completely useless demo application intended to practice <br /> some Next.js Framework basics
       </p>
       <span className="mt-5">
         <Link href="/about">

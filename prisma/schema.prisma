@@ -35,6 +35,9 @@ model User {
   bio        String?   @db.Text
   age        Int?
   image      String?
+  location   String?
+  hometown   String?
+  education  String?
 
   following  Follow[]  @relation("follower")
   followedBy Follow[]  @relation("following")

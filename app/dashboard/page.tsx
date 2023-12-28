@@ -13,7 +13,7 @@ const Dashboard = async () => {
 
 	return (
 		<main>
-			<ProfileEditForm user={user}/>
+			<ProfileEditForm user={user} />
 		</main>
 	)
 }

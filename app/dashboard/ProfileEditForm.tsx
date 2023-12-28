@@ -12,9 +12,12 @@ interface IProps {
 }
 
 interface IForm {
-  name: string
-  age: string
-  image: string
+  name: string,
+  age: string,
+  location: string,
+  hometown: string,
+  education: string,
+  image: string,
   bio: string
 }
 
@@ -26,10 +29,13 @@ const ProfileEditForm = ({ user }: IProps) => {
     defaultValues: {
       name: user.name || "",
       age: user.age?.toString() || "",
+      location: user?.location || "",
+      hometown: user?.hometown || "",
+      education: user?.education || "",
       image: user.image || "",
       bio: user.bio || ""
     },
-    mode: "all"
+    mode: "onChange"
   })
 
   const onSubmit = (values: IForm) => {
@@ -53,7 +59,7 @@ const ProfileEditForm = ({ user }: IProps) => {
           {...register("name", {
             required: "No name? :((((",
             minLength: { value: 4, message: "That's kinda small..." },
-            maxLength: { value: 30, message: "😶 Impressive, but... a little to long" }
+            maxLength: { value: 30, message: "Impressive 😶, but... a little to long" }
           })}
           placeholder="Name"
           className="mb-3"
@@ -67,6 +73,24 @@ const ProfileEditForm = ({ user }: IProps) => {
           })}
           type="number"
           placeholder="Age"
+          className="mb-3"
+        />
+
+        <input
+          {...register("location")}
+          placeholder="Location"
+          className="mb-3"
+        />
+
+        <input
+          {...register("hometown")}
+          placeholder="Hometown"
+          className="mb-3"
+        />
+
+        <input
+          {...register("education")}
+          placeholder="Education"
           className="mb-3"
         />
 
