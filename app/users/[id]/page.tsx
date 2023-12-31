@@ -1,6 +1,7 @@
-import { getServerSession } from "next-auth"
 import Image from "next/image"
 import Link from "next/link"
+import { ReactElement } from "react"
+import { getServerSession } from "next-auth"
 import { prisma } from "@/lib/prisma"
 import Button from "@/app/components/ui/Button"
 import ErrorPage from "@/app/components/common/ErrorPage"
@@ -8,7 +9,6 @@ import FollowButton from "@/app/components/modules/FollowSetion/FollowButton"
 import PostsSection from "@/app/components/modules/PostsSection/PostsSection"
 import { authOptions } from "@/app/api/auth/[...nextauth]/route"
 import placeholder from "@/public/avatar-placeholder.png"
-import { ReactElement } from "react"
 import EditIcon from "@/public/edit.svg"
 
 interface IProps {
@@ -109,7 +109,7 @@ const UserProfile = async ({ params }: IProps) => {
   )
 }
 
-const RenderIfCoreExists = ({core, children}: {core: any, children: ReactElement[]}) => {
+const RenderIfCoreExists = ({ core, children }: { core: any, children: ReactElement[] }) => {
   if (!core) return 
   
   return <div>
