@@ -5,6 +5,11 @@ import { prisma } from "@/lib/prisma"
 import { authOptions } from "../api/auth/[...nextauth]/route"
 import PostCard from "../components/common/PostCard"
 
+export const metadata = {
+  title: "NextSpace | Followed",
+  description: "Posts of users you follow"
+}
+
 const Followed = async () => {
   const session = await getServerSession(authOptions)
   if (!session?.user?.id) redirect("/api/auth/signin")

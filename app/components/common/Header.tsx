@@ -19,14 +19,14 @@ const Header = () => {
   }
 
   return (
-    <header className="container relative flex justify-between p-3 mb-3 rounded-b-[3px] bg-blue-600 select-none xs:items-center">
+    <header className="container relative p-3 mb-3 flex justify-between bg-blue-600 z-50 select-none xs:items-center lg:rounded-b-[4px]">
       <Link
         href="/"
         onClick={closeNavMenu}
       >
         <Image
           src="/logo.svg"
-          alt="Next Space"
+          alt="NextSpace"
           width={180}
           height={30}
         />

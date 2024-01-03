@@ -71,3 +71,7 @@ button.btn.light {
 button.btn.dark {
   @apply text-white border-gray-800 bg-gray-950 hover:bg-gray-800 hover:text-gray-50 focus-visible:ring-gray-300
 }
+
+.link {
+  @apply underline font-semibold text-gray-800
+}

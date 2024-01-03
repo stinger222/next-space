@@ -19,7 +19,7 @@ interface IProps {
 
 export const generateMetadata = async ({ params }: IProps) => {
   const user = await prisma.user.findUnique({ where: { id: params.id } })
-  return { title: `${user?.name}'s User Profile` }
+  return { title: `${user?.name}'s Profile` }
 }
 
 const UserProfile = async ({ params }: IProps) => {

@@ -6,7 +6,7 @@ import AuthProvider from "./AuthProvider"
 const inter = Inter({ subsets: ["latin", "cyrillic"] })
 
 export const metadata = {
-  title: "Next Space | Home"
+  title: "NextSpace | Home"
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
