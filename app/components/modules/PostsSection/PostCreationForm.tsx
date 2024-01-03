@@ -72,7 +72,6 @@ const PostCreationForm = ({ onPostCreation }: IProps) => {
       </button>
 
       <p className="absolute -bottom-6 left-3 font-semibold text-red-500">{methods.formState.errors.postMessage?.message}</p>
-      
     </form>
   )
 }

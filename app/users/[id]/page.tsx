@@ -43,25 +43,28 @@ const UserProfile = async ({ params }: IProps) => {
   
   return (
     <main className="flex flex-col gap-5">
-      <section className="relative flex flex-col gap-7 sm:flex-row">
+      <section className=" flex flex-col gap-7 sm:flex-row">
         <div className="flex flex-col align-bottom items-center w-full sm:max-w-fit ">
           <h1 className="mb-5 w-full text-4xl text-center max-w-sm max-lines-2">
             {profileOwner.name}
           </h1>
-          
-          {currentUserIsOwner && 
-            <Link href="/dashboard">
-              <EditIcon className="absolute top-0 right-2 p-1 h-10 w-10 fill-gray-700"/>
-            </Link>
-          }
 
-          <Image
-            className="mx-auto min-w-[10em] rounded-full border-2 border-gray-300 p-1 shadow-lg shadow-gray-400 #23c9f3"
-            width="250"
-            height="250"
-            src={profileOwner?.image || placeholder}
-            alt="User's Avatar"
-          />
+          <span className="relative">
+
+            <Image
+              className="mx-auto min-w-[10em] rounded-full border-2 border-gray-300 p-1 shadow-lg shadow-gray-400 #23c9f3"
+              width="250"
+              height="250"
+              src={profileOwner?.image || placeholder}
+              alt="User's Avatar"
+              />
+
+            {currentUserIsOwner && 
+              <Link href="/dashboard" className="absolute inset-2 rounded-full bg-[#00000030] opacity-0 hover:opacity-100 transition-opacity">
+                <EditIcon className="pl-20 p-16 fill-white w-full h-full"/>
+              </Link>
+            }
+          </span>
 
           <div className="flex gap-2 mt-8">
             <Link href={`/users/${profileOwner.id}/followers`}>
@@ -100,7 +103,6 @@ const UserProfile = async ({ params }: IProps) => {
             <h3 className="mt-4 text-[24px] font-semibold">Bio</h3>
             <p>{profileOwner?.bio}</p>
           </RenderIfCoreExists>
-
         </div>
       </section>
 
