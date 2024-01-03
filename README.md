@@ -25,6 +25,25 @@ This is a practical project that helped me to grasp essential Next.js 13 famewor
   - Follow users and keep track of what they post
   - Edit your profile info
 
+## Preview (mock data)
+ <details>
+   <summary><b>User Page</b></summary>
+
+  ![image](https://github.com/stinger222/next-space/assets/39219491/2cb81d2e-375c-44b0-b301-ebd85050aed5)
+</details>
+
+ <details>
+   <summary><b>Registered Users</b></summary>
+  
+   ![image](https://github.com/stinger222/next-space/assets/39219491/3a5ebd42-7c27-4b41-b438-203977c1a597)
+</details>
+
+ <details>
+   <summary><b>Followed Posts</b></summary>
+  
+   ![image](https://github.com/stinger222/next-space/assets/39219491/61c7c142-3351-44d5-8e0d-da0dbc44001b)
+</details>
+
 ## Development
 1. Clone repo using `git clone` command
 2. Add `.env` file in the root directory _(look `.env.example`)_
