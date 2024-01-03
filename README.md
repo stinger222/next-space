@@ -41,7 +41,7 @@ This is a practical project that helped me to grasp essential Next.js 13 famewor
  <details>
    <summary><b>Followed Posts</b></summary>
   
-   ![image](https://github.com/stinger222/next-space/assets/39219491/61c7c142-3351-44d5-8e0d-da0dbc44001b)
+   ![image](https://github.com/stinger222/next-space/assets/39219491/0caa6863-bfab-4bc0-8588-7f483ecbbb4b)
 </details>
 
 ## Development
