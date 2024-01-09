@@ -2,6 +2,9 @@
 This is a practical project that helped me to grasp essential Next.js 13 famework features while building simple social platform with a handful of basic features
 <br/>
 
+## Demo
+App deployed on [Vercel](https://next-space-phi.vercel.app), so you can check it out if you want! _(you're probably not...)_
+
 ## Tech Stack
  <b>▷ Typescript</b>
 
