@@ -1,8 +1,8 @@
 import { prisma } from "@/lib/prisma"
-import { NextResponse } from "next/server"
+import { NextRequest, NextResponse } from "next/server"
 
-export const GET = async (req: NextResponse) => {
-  const targetId = req.url.split("/users/")[1].split("/")[0]
+export const GET = async (req: NextRequest) => {
+  const targetId = req.url.split("/users/")[1].split("/")[0] // TODO: wtf?
 
   const user = await prisma.user.findUnique({
     where: { id: targetId },
