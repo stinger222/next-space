@@ -3,6 +3,9 @@ const nextConfig = {
   experimental: {
     serverActions: true
   },
+  env: {
+    DOMAIN: process.env.NEXT_PUBLIC_DOMAIN
+  },
   images: {
     remotePatterns: [
       {
