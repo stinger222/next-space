@@ -19,6 +19,16 @@ export const POST = async (req: NextRequest) => {
   if (!postMessage) return NextResponse.json("Invalid post message", { status: 403 })
 
   try {
+    const posts = await prisma.post.findMany({
+      where: {
+        authorId: currentUserId
+      }
+    })
+
+    if (posts.length >= 25) {
+      return NextResponse.json({ displayMessage: "Sorry, you can create only 25 posts total" }, { status: 403 })
+    }
+
     await prisma.post.create({
       data: {
         postMessage,

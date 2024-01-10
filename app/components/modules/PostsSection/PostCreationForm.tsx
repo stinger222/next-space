@@ -2,11 +2,12 @@
 
 import { api } from "@/lib/api"
 import { PostModelWithAuthor } from "@/types/types"
-import { AxiosResponse } from "axios"
+import { AxiosError, AxiosResponse } from "axios"
 import { useSession } from "next-auth/react"
 import { useRouter } from "next/navigation"
 import { useState } from "react"
 import { useForm } from "react-hook-form"
+import { toast } from "sonner"
 
 // TODO: Move out to utils
 const messageNotEmpty = (s: string) => {
@@ -43,7 +44,10 @@ const PostCreationForm = ({ onPostCreation }: IProps) => {
         onPostCreation(response.data.posts)
         console.log("Post successfully created!")
       })
-      .catch((err) => console.error("Can't create post: ", err))
+      .catch((err: AxiosError<{displayMessage?: string }>) => {
+        console.error("Can't create post: ", err)
+        toast.error(err?.response?.data?.displayMessage )
+      })
       .finally(() => setIsCreating(false))
   }
 
