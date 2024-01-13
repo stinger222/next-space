@@ -22,6 +22,5 @@ export const DELETE = async () => {
     }
   })
 
-  redirect("/")
   return NextResponse.json(record, { status: 200 })
 }

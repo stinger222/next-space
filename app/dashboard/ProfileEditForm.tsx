@@ -1,7 +1,7 @@
 "use client"
 
 import { api } from "@/lib/api"
-import { IUser, prisma } from "@/lib/prisma"
+import { IUser } from "@/lib/prisma"
 import { useSession } from "next-auth/react"
 import { useRouter } from "next/navigation"
 import { useForm } from "react-hook-form"
@@ -50,11 +50,11 @@ const ProfileEditForm = ({ user }: IProps) => {
 
   const handleAccountDeletion = () => {
     if (!window.confirm("Are you sure you want to delete your account?")) return
-
+    
     api
       .delete("api/users/me")
+      .then(() => window.location.pathname = "/")
       .catch(err => console.error("Can't delete account\n", err))
-
   }
 
   if (session.status === "loading") return <Loader />
