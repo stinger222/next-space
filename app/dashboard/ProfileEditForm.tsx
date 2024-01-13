@@ -39,7 +39,6 @@ const ProfileEditForm = ({ user }: IProps) => {
   })
 
   const onSubmit = (values: IForm) => {
-    
     return api
     .put("api/users", values)
     .then(() => router.push("/api/users/me"))
@@ -47,6 +46,15 @@ const ProfileEditForm = ({ user }: IProps) => {
       reset()
       console.error("Can't update user profile:\n", err)
     }) 
+  }
+
+  const handleAccountDeletion = () => {
+    if (!window.confirm("Are you sure you want to delete your account?")) return
+
+    api
+      .delete("api/users/me")
+      .catch(err => console.error("Can't delete account\n", err))
+
   }
 
   if (session.status === "loading") return <Loader />
@@ -110,13 +118,22 @@ const ProfileEditForm = ({ user }: IProps) => {
         />
       </div>
 
-      <button
-        className="block mx-auto my-8 px-7 py-1 text-xl text-gray-800 font-semibold border-2 border-gray-800 rounded-lg disabled:opacity-40"
-        type="submit"
-        disabled={!formState.isValid || formState.isSubmitting}
-      >
-        Save
-      </button>
+      <div className="flex justify-center gap-3 my-8">
+        <button
+          className="px-7 py-1 text-xl text-gray-800 font-semibold border-2 border-gray-800 rounded-lg disabled:opacity-40"
+          type="submit"
+          disabled={!formState.isValid || formState.isSubmitting}
+        >
+          Save
+        </button>
+
+        <button
+          className="px-7 py-1 text-xl text-red-500 font-semibold border-2 border-red-600 rounded-lg"
+          onClick={handleAccountDeletion}
+        >
+          Delete Account
+        </button>
+      </div>
     </form>
   )
 }
