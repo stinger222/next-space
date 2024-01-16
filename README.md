@@ -30,19 +30,19 @@ App deployed on [Vercel](https://next-space-phi.vercel.app), so you can check it
 
 ## Preview (mock data)
  <details>
-   <summary><b>User Page</b></summary>
+   <summary><b>User Page </b><i>(click to expand)</i></summary>
 
   ![image](https://github.com/stinger222/next-space/assets/39219491/2cb81d2e-375c-44b0-b301-ebd85050aed5)
 </details>
 
  <details>
-   <summary><b>Registered Users</b></summary>
+   <summary><b>Registered Users </b><i>(click to expand)</i></summary>
   
    ![image](https://github.com/stinger222/next-space/assets/39219491/3a5ebd42-7c27-4b41-b438-203977c1a597)
 </details>
 
  <details>
-   <summary><b>Followed Posts</b></summary>
+   <summary><b>Followed Posts </b><i>(click to expand)</i></summary>
   
    ![image](https://github.com/stinger222/next-space/assets/39219491/0caa6863-bfab-4bc0-8588-7f483ecbbb4b)
 </details>
